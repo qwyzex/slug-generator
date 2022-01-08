@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+// import { useRef } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+    // const resValue = useRef();
+
+    return (
+        <div className="App">
+            <article>This is so stupid to be honest...</article>
+            <form onSubmit={filterSlug}>
+                <input type="text" id="input-slug" autofocus />
+                <button type="submit">GENERATE</button>
+                <input id="result"></input>
+            </form>
+        </div>
+    );
 }
 
-export default App;
+function filterSlug(e) {
+    e.preventDefault();
+
+    let slug = document.querySelector("#input-slug");
+    let res = document.querySelector("#result");
+
+    if (slug.value === "") {
+        alert("You must insert a value!");
+    } else {
+        res.value = slug.value
+            .toLowerCase()
+            .replace(
+                /!|@|#|\$|%|\^|&|\*|\(|\)|_|=|\+|\[|\]|{|}|\||\\|:|;|'|"|,|\.|<|>|\/|\?|`|~/g,
+                ""
+            )
+            .replace(/\s/g, "-");
+    }
+}
